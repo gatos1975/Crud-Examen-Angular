@@ -1,0 +1,61 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="proyecto" (ngSubmit)="grabar()">
+        <div class="mb-2">
+          <label for="ID_empleado">Empleado</label>
+          <select class="form-control" formControlName="ID_empleado">
+            <option value="0">--Seleccione una opción--</option>
+        @for (proyecto of ListaEmpleados; track proyecto.ID_empleado) {
+          <option [value]="proyecto.ID_empleado">
+            {{ proyecto.Nombre }}
+          </option>
+          }
+        </select>
+      
+        </div>
+        <div class="mb-2">
+          <label for="Nombre">Nombre del proyecto</label>
+          <input type="text" class="form-control" formControlName="Nombre" />
+          
+        </div>
+        <div class="mb-2">
+          <label for="Fecha_inicio">Fecha de Inicio</label>
+          <input type="date" class="form-control" formControlName="Fecha_inicio" />
+          @if (proyecto.invalid && (proyecto.dirty || proyecto.touched)) {
+              <div class="alert">
+                  @if (proyecto.errors?.["required"]) {
+                      <div class="ng-invalid">Fecha de Inicio es requerida</div>
+                  }
+              </div>
+          }
+      </div>
+      <div class="mb-2">
+          <label for="Fecha_fin">Fecha Final</label>
+          <input type="date" class="form-control" formControlName="Fecha_fin" />
+          @if (proyecto.invalid && (proyecto.dirty || proyecto.touched)) {
+              <div class="alert">
+                  @if (proyecto.errors?.["required"]) {
+                      <div class="ng-invalid">Fecha de Fin es requerida</div>
+                  }
+              </div>
+          }
+      </div>
+
+        <div class="mb-2">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!proyecto.valid"
+          >
+            Grabar
+          </button>
+          <button class="btn btn-secondary" routerLink="/proyectos">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+   

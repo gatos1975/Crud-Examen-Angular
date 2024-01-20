@@ -1,0 +1,60 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+      <hr />
+      <button class="btn btn-primary" routerLink="/nuevo-proyecto">Nuevo</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Empleado Responsable</th>
+              <th>Nombre Proyecto</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Finalizar</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (proyecto of proyectos; track proyecto.ID_proyecto; let i =
+            $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ proyecto.ID_empleado}}</td>
+              <td>{{ proyecto.Nombre }}</td>
+              <td>{{ proyecto.Fecha_inicio }}</td>
+              <td>{{ proyecto.Fecha_fin }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  routerLink="/editar-proyecto/{{ proyecto.ID_proyecto }}"
+                ><i class="fas fa-edit"></i>
+                  
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="eliminar(proyecto.ID_proyecto)"
+                ><i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            }@empty {
+            <tr>
+              <td colspan="5">No existen registros</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
